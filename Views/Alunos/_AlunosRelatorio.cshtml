@@ -1,0 +1,11 @@
+﻿@model IEnumerable<GerenciamentoDeAlunos.Models.Aluno>
+
+@foreach (var aluno in Model)
+{
+    <tr>
+        <td>@aluno.Nome</td>
+        <td>@aluno.Cpf</td>
+        <td>@aluno.NomeCurso</td>
+        <td>@aluno.DataConclusao.ToShortDateString()</td>
+    </tr>
+}

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<GerenciamentoDeAlunos.Models.Aluno>
+
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Relatório de Estudantes por Instituição de Ensino</h1>
+
+<select id="instituicaoEnsino">
+    <option value="">Selecione a Instituição de Ensino</option>
+    @foreach (var instituicao in ViewBag.InstituicoesEnsino)
+    {
+        <option value="@instituicao.InstituicaoEnsinoId">@instituicao.Nome</option>
+    }
+</select>
+<button id="imprimirRelatorio">Imprimir Relatório</button>
+
+<table id="relatorioTable" class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Nome do Curso</th>
+            <th>Data de Conclusão</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr class="alunoRow" data-instituicao="@aluno.InstituicaoEnsinoId">
+                <td>@aluno.Nome</td>
+                <td>@aluno.Cpf</td>
+                <td>@aluno.NomeCurso</td>
+                <td>@aluno.DataConclusao.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#imprimirRelatorio').click(function () {
+                window.print();
+            });
+
+            $('#instituicaoEnsino').change(function () {
+                var instituicaoEnsinoId = $(this).val();
+                $('.alunoRow').show();
+                if (instituicaoEnsinoId !== '') {
+                    $('.alunoRow').each(function () {
+                        if ($(this).data('instituicao') != instituicaoEnsinoId) {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+

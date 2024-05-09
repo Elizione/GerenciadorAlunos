@@ -1,0 +1,81 @@
+﻿@model IEnumerable<GerenciamentoDeAlunos.Models.Aluno>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Alunos</h1>
+
+<input type="text" id="searchInput" placeholder="Pesquisar...">
+<a asp-controller="Alunos" asp-action="Report">Relatório de Estudantes</a>
+
+
+<p>
+	<a asp-action="Create">Cadastrar Aluno</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Cpf)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Endereco)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.NomeCurso)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataConclusao)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Estado)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Cidade)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.InstituicaoEnsino)
+			</th>
+		</tr>
+	</thead>
+	<tbody class="table-body">
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Cpf)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Endereco)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NomeCurso)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataConclusao)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Estado.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Cidade.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.InstituicaoEnsino.Nome)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+					<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
